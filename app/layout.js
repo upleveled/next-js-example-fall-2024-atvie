@@ -35,6 +35,7 @@ export default function RootLayout({ children }) {
               {/* This is optimized */}
               <Link href="/">Home</Link>
               <Link href="/animals">Animals</Link>
+              <Link href="/fruits">Fruits</Link>
               <Link href="/about">About</Link>
             </nav>
             {Math.floor(Math.random() * 10)}
