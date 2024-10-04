@@ -1,9 +1,11 @@
 import Image from 'next/image';
 import React from 'react';
-import { getAnimal } from '../../../database/animals';
+import { getAnimalInsecure } from '../../../database/animals';
 
 export async function generateMetadata(props) {
-  const singleAnimal = getAnimal(Number((await props.params).animalId));
+  const singleAnimal = await getAnimalInsecure(
+    Number((await props.params).animalId),
+  );
   return {
     title: singleAnimal.firstName,
     description: 'This is my single animal page ',
@@ -11,7 +13,9 @@ export async function generateMetadata(props) {
 }
 
 export default async function AnimalPage(props) {
-  const singleAnimal = getAnimal(Number((await props.params).animalId));
+  const singleAnimal = await getAnimalInsecure(
+    Number((await props.params).animalId),
+  );
 
   const currentDate = new Date();
 
