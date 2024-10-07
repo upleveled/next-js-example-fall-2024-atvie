@@ -11,7 +11,7 @@ export default async function AnimalFoodsPage(props) {
   );
 
   const animalWithFoodsArray = await getAnimalWithFoodsInsecure(
-    Number(props.params.animalId),
+    Number((await props.params).animalId),
   );
 
   if (!animalsWithFoods[0] || !animalWithFoodsArray) {
