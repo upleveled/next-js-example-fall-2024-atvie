@@ -19,7 +19,7 @@ export default async function AnimalFoodsPage(props) {
     notFound();
   }
 
-  const animalWithFoods = reduceAnimalsWithFoods(animalWithFoodsArray);
+  const animalWithFoods = reduceAnimalsWithFoods(animalsWithFoods);
 
   return (
     <div>
