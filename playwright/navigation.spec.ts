@@ -31,7 +31,7 @@ test('navigation test', async ({ page }) => {
   const animals = [
     {
       id: 1,
-      firstName: 'Lukas',
+      firstName: 'Lucia',
       type: 'Cat',
       accessory: 'House',
       birthDate: new Date('2020-06-23'),
