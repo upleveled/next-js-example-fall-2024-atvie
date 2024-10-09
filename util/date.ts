@@ -1,7 +1,7 @@
 export function formatDate(
-  date,
+  date: Date,
   locale = 'en-GB',
-  options = {
+  options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
@@ -13,7 +13,7 @@ export function formatDate(
   return date.toLocaleDateString(locale, options);
 }
 
-export function getDaysUntilNextBirthday(currentDate, birthDate) {
+export function getDaysUntilNextBirthday(currentDate: Date, birthDate: Date) {
   if (!(currentDate instanceof Date) || !(birthDate instanceof Date)) {
     throw new Error('Pass only dates!');
   }
