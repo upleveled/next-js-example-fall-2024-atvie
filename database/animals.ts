@@ -73,6 +73,16 @@ export const getAnimalInsecure = cache(async (id: number) => {
       id = ${id}
   `;
 
+  // Alternative to destructuring: access using [0]
+  // const animal = (await sql<Animal[]>`
+  //   SELECT
+  //     *
+  //   FROM
+  //     animals
+  //   WHERE
+  //     id = ${id}
+  // `)[0];
+
   return animal;
 });
 
