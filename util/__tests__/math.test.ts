@@ -7,7 +7,10 @@ test('add 2 numbers', () => {
 });
 
 test('throws an error when arguments are not numbers', () => {
+  // @ts-expect-error Test for invalid parameter type
   expect(() => add(1, '1')).toThrow('Pass only numbers!');
+  // @ts-expect-error Test for invalid parameter type
   expect(() => add(false, '1')).toThrow('Pass only numbers!');
+  // @ts-expect-error Test for invalid parameter type
   expect(() => add('2', '1')).toThrow('Pass only numbers!');
 });

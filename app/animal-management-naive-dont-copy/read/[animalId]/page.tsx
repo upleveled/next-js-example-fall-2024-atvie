@@ -1,21 +1,31 @@
 import Image from 'next/image';
+import { notFound } from 'next/navigation';
 import React from 'react';
 import { getAnimalInsecure } from '../../../../database/animals';
 
-export async function generateMetadata(props) {
+export async function generateMetadata(props: Props) {
   const singleAnimal = await getAnimalInsecure(
     Number((await props.params).animalId),
   );
   return {
-    title: singleAnimal.firstName,
+    // Optional chaining because we cannot call notFound() in generateMetadata
+    title: singleAnimal?.firstName,
     description: 'This is my single animal page ',
   };
 }
 
-export default async function AnimalPage(props) {
+type Props = {
+  params: Promise<{
+    animalId: string;
+  }>;
+};
+
+export default async function AnimalPage(props: Props) {
   const singleAnimal = await getAnimalInsecure(
     Number((await props.params).animalId),
   );
+
+  if (!singleAnimal) notFound();
 
   const currentDate = new Date();
 

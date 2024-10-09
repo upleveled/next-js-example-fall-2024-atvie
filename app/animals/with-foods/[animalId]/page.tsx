@@ -4,9 +4,15 @@ import {
   getAnimalsFoodsInsecure,
   getAnimalWithFoodsInsecure,
 } from '../../../../database/animals';
-import { reduceAnimalsWithFoods } from '../../../../util/dataStructure';
+import { reduceAnimalsWithFoods } from '../../../../util/dataStructures';
 
-export default async function AnimalFoodsPage(props) {
+type Props = {
+  params: Promise<{
+    animalId: string;
+  }>;
+};
+
+export default async function AnimalFoodsPage(props: Props) {
   const animalsWithFoods = await getAnimalsFoodsInsecure(
     Number((await props.params).animalId),
   );
