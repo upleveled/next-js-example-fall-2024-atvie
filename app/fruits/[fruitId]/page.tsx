@@ -5,7 +5,13 @@ import { getCookie } from '../../../util/cookies';
 import { parseJson } from '../../../util/json';
 import FruitCommentForm from './FruitCommentForm';
 
-export default async function SingleFruitPage(props) {
+type Props = {
+  params: Promise<{
+    fruitId: string;
+  }>;
+};
+
+export default async function SingleFruitPage(props: Props) {
   const fruit = getFruit(Number((await props.params).fruitId));
 
   const fruitCommentsCookie = await getCookie('fruitsComments');

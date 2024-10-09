@@ -1,4 +1,6 @@
-export function reduceAnimalsWithFoods(animalsWithFoods) {
+import { AnimalsFoods } from '../migrations/00004-createTableAnimalFoods';
+
+export function reduceAnimalsWithFoods(animalsWithFoods: AnimalsFoods[]) {
   const animal = animalsWithFoods[0];
 
   if (!animal) {

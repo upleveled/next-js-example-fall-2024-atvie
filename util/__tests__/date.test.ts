@@ -30,6 +30,7 @@ test('format date for displaying the date with different options', () => {
 });
 
 test('throws an error when dates are not valid', () => {
+  // @ts-expect-error Test for invalid parameter type
   expect(() => formatDate(false)).toThrow('Pass only dates!');
 });
 
@@ -40,6 +41,7 @@ test('calculate days until next birthday', () => {
 });
 
 test('throws an error when arguments are not dates', () => {
+  // @ts-expect-error Test for invalid parameter type
   expect(() => getDaysUntilNextBirthday('123', new Date('2024-02-07'))).toThrow(
     'Pass only dates!',
   );
