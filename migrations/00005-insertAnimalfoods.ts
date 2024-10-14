@@ -1,4 +1,4 @@
-import { Sql } from 'postgres';
+import type { Sql } from 'postgres';
 
 const animalFoods = [
   { id: 1, animalId: 1, foodId: 4 },

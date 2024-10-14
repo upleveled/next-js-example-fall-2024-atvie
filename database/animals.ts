@@ -1,5 +1,5 @@
 import { cache } from 'react';
-import {
+import type {
   AnimalsFoods,
   AnimalWithFoods,
 } from '../migrations/00004-createTableAnimalFoods';

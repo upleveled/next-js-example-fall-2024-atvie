@@ -1,4 +1,4 @@
-import { AnimalsFoods } from '../migrations/00004-createTableAnimalFoods';
+import type { AnimalsFoods } from '../migrations/00004-createTableAnimalFoods';
 
 export function reduceAnimalsWithFoods(animalsWithFoods: AnimalsFoods[]) {
   const animal = animalsWithFoods[0];
