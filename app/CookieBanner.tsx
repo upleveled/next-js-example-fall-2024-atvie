@@ -10,9 +10,7 @@ export default function CookieBanner() {
 
   // // In case you are using state variables with multiple different
   // // possible types
-  // const [areCookiesAccepted, setAreCookiesAccepted] = useState<
-  //   boolean | string
-  // >(false);
+  // const [areCookiesAccepted, setAreCookiesAccepted] = useState<boolean | string>(false);
 
   useEffect(() => {
     const localStorageValue = getLocalStorage('cookiePolicy');

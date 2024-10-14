@@ -9,7 +9,7 @@ export default function LocalStorage() {
     // window.localStorage.setItem('darkMode', true);
     // window.localStorage.removeItem('darkMode');
 
-    const localStorageDarkMode = window.localStorage.getItem('darkMode');
+    const localStorageDarkMode = window.localStorage.getItem('darkMode') || '';
 
     setDarkMode(localStorageDarkMode);
   }, []);

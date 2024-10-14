@@ -4,8 +4,15 @@ import {
   getAnimalsFoodsInsecure,
   getAnimalWithFoodsInsecure,
 } from '../../../../database/animals';
+import { reduceAnimalsWithFoods } from '../../../../util/dataStructures';
 
-export default async function AnimalFoodsPage(props) {
+type Props = {
+  params: Promise<{
+    animalId: string;
+  }>;
+};
+
+export default async function AnimalFoodsPage(props: Props) {
   const animalsWithFoods = await getAnimalsFoodsInsecure(
     Number((await props.params).animalId),
   );
@@ -18,21 +25,7 @@ export default async function AnimalFoodsPage(props) {
     notFound();
   }
 
-  const animal = animalsWithFoods[0];
-  const animalWithFoods = {
-    id: animal.animalId,
-    firstName: animal.animalFirstName,
-    type: animal.animalType,
-    accessory: animal.animalAccessory,
-    birthDate: animal.animalBirthDate,
-    animalFoods: animalsWithFoods.map((animalWithFood) => {
-      return {
-        id: animalWithFood.animalFoodId,
-        name: animalWithFood.animalFoodName,
-        type: animalWithFood.animalFoodType,
-      };
-    }),
-  };
+  const animalWithFoods = reduceAnimalsWithFoods(animalsWithFoods);
 
   return (
     <div>

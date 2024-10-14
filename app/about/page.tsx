@@ -10,7 +10,9 @@ export default function AboutPage() {
   const myComplexObjectAsString = JSON.stringify(myComplexObject);
   console.log(myComplexObjectAsString);
 
-  const myComplexObjectAsJsAgain = JSON.parse(myComplexObjectAsString);
+  const myComplexObjectAsJsAgain = JSON.parse(
+    myComplexObjectAsString,
+  ) as typeof myComplexObject;
   console.log(myComplexObjectAsJsAgain);
   return (
     <>
