@@ -193,7 +193,7 @@ export const deleteAnimalInsecure = cache(async (animalId: Animal['id']) => {
   return animal;
 });
 
-// Using the Typescript Pick utility type
+// Alternative: Using the TypeScript Pick utility type
 // export const deleteAnimalInsecure = cache(
 //   async (deletedAnimal: Pick<Animal, 'id'>) => {
 //     const [animal] = await sql<Animal[]>`
