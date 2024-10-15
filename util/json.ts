@@ -1,5 +1,5 @@
 import sjson from 'secure-json-parse';
-import { FruitComment } from '../app/fruits/[fruitId]/actions';
+import type { FruitComment } from '../app/fruits/[fruitId]/actions';
 
 export function parseJson(json: string | undefined) {
   if (!json) return undefined;
