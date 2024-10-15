@@ -94,3 +94,8 @@ pnpm jest
 ```bash
 pnpm playwright test
 ```
+
+## Deployment
+
+- Fly.io
+- Docker
