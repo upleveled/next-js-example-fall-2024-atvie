@@ -1,7 +1,7 @@
 import './globals.scss';
 import localFont from 'next/font/local';
 import Link from 'next/link';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
