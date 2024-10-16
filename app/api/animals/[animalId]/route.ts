@@ -60,9 +60,7 @@ export async function DELETE(
 ): Promise<NextResponse<AnimalResponseBodyDelete>> {
   console.log(Number((await params).animalId));
 
-  const animal = await deleteAnimalInsecure({
-    id: Number((await params).animalId),
-  });
+  const animal = await deleteAnimalInsecure(Number((await params).animalId));
 
   if (!animal) {
     return NextResponse.json(
