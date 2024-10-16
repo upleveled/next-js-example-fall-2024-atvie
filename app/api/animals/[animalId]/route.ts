@@ -46,10 +46,18 @@ export async function GET(
   return NextResponse.json({ animal: animal });
 }
 
+export type AnimalResponseBodyDelete =
+  | {
+      animal: Animal;
+    }
+  | {
+      error: string;
+    };
+
 export async function DELETE(
   request: NextRequest,
   { params }: AnimalParams,
-): Promise<NextResponse<AnimalResponseBodyGet>> {
+): Promise<NextResponse<AnimalResponseBodyDelete>> {
   console.log(Number((await params).animalId));
 
   const animal = await deleteAnimalInsecure({
@@ -71,7 +79,7 @@ export async function DELETE(
   return NextResponse.json({ animal: animal });
 }
 
-type AnimalResponseBodyPut =
+export type AnimalResponseBodyPut =
   | {
       animal: Animal;
     }

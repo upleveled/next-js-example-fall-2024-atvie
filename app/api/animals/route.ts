@@ -21,7 +21,7 @@ export async function GET(): Promise<NextResponse<AnimalResponseBodyGet>> {
   return NextResponse.json({ animals: animals });
 }
 
-type AnimalResponseBodyPost =
+export type AnimalsResponseBodyPost =
   | {
       animal: Animal;
     }
@@ -31,7 +31,7 @@ type AnimalResponseBodyPost =
 
 export async function POST(
   request: Request,
-): Promise<NextResponse<AnimalResponseBodyPost>> {
+): Promise<NextResponse<AnimalsResponseBodyPost>> {
   // get body from client and parse it
   const requestBody = await request.json();
 
