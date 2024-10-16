@@ -44,7 +44,7 @@ import { sql } from './connect';
 //   },
 // ];
 
-type Animal = {
+export type Animal = {
   id: number;
   firstName: string;
   type: string;
