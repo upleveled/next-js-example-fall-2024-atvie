@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
-import { z } from 'zod';
 import {
   type Animal,
   createAnimalInsecure,
   getAnimalsInsecure,
 } from '../../../database/animals';
+import { animalSchema } from '../../../migrations/00000-createTableAnimals';
 
 type AnimalResponseBodyGet =
   | {
@@ -21,14 +21,6 @@ export async function GET(): Promise<NextResponse<AnimalResponseBodyGet>> {
   return NextResponse.json({ animals: animals });
 }
 
-export const animalSchema = z.object({
-  firstName: z.string(),
-  type: z.string(),
-  accessory: z.string().optional(),
-  // accessory: z.string().nullable()
-  birthDate: z.coerce.date(),
-});
-
 type AnimalResponseBodyPost =
   | {
       animal: Animal;
@@ -40,13 +32,24 @@ type AnimalResponseBodyPost =
 export async function POST(
   request: Request,
 ): Promise<NextResponse<AnimalResponseBodyPost>> {
-  // get body from client
+  // get body from client and parse it
   const requestBody = await request.json();
 
   // validate information from client
   const result = animalSchema.safeParse(requestBody);
 
+  // If client sends request body with incorrect data,
+  // return a response with a 400 status code to the client
   if (!result.success) {
+    // error.issues [
+    //   {
+    //     code: 'invalid_type',
+    //     expected: 'string',
+    //     received: 'undefined',
+    //     path: [ 'name' ],
+    //     message: 'Required'
+    //   }
+    // ]
     return NextResponse.json(
       {
         error: 'You need to send an object with animal information',
@@ -58,7 +61,7 @@ export async function POST(
     );
   }
 
-  // validation successful, add information to database
+  // validation successful, add information to database and return the new animal
   const newAnimal = await createAnimalInsecure({
     firstName: result.data.firstName,
     type: result.data.type,

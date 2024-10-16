@@ -1,4 +1,13 @@
 import type { Sql } from 'postgres';
+import { z } from 'zod';
+
+export const animalSchema = z.object({
+  firstName: z.string(),
+  type: z.string(),
+  accessory: z.string().optional(),
+  // accessory: z.string().nullable()
+  birthDate: z.coerce.date(),
+});
 
 export async function up(sql: Sql) {
   await sql`
