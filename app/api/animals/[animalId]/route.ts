@@ -7,7 +7,7 @@ import {
   getAnimalInsecure,
   updateAnimalInsecure,
 } from '../../../../database/animals';
-import { animalSchema } from '../route';
+import { animalSchema } from '../../../../migrations/00000-createTableAnimals';
 
 type AnimalResponseBodyGet =
   | {
@@ -18,9 +18,9 @@ type AnimalResponseBodyGet =
     };
 
 type AnimalParams = {
-  params: {
+  params: Promise<{
     animalId: string;
-  };
+  }>;
 };
 
 // query directly in your Server Component
@@ -46,10 +46,18 @@ export async function GET(
   return NextResponse.json({ animal: animal });
 }
 
+export type AnimalResponseBodyDelete =
+  | {
+      animal: Animal;
+    }
+  | {
+      error: string;
+    };
+
 export async function DELETE(
   request: NextRequest,
   { params }: AnimalParams,
-): Promise<NextResponse<AnimalResponseBodyGet>> {
+): Promise<NextResponse<AnimalResponseBodyDelete>> {
   console.log(Number((await params).animalId));
 
   const animal = await deleteAnimalInsecure({
@@ -71,7 +79,7 @@ export async function DELETE(
   return NextResponse.json({ animal: animal });
 }
 
-type AnimalResponseBodyPut =
+export type AnimalResponseBodyPut =
   | {
       animal: Animal;
     }
@@ -90,7 +98,7 @@ export async function PUT(
   if (!result.success) {
     return NextResponse.json(
       {
-        error: 'Request doesnt contain animal object',
+        error: "Request doesn't contain animal object",
         errorIssues: result.error.issues,
       },
       {
@@ -110,7 +118,7 @@ export async function PUT(
   if (!updatedAnimal) {
     return NextResponse.json(
       {
-        error: 'Animal not found or access denied',
+        error: 'Animal not found or access denied updating animal',
       },
       {
         status: 500,
