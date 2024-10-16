@@ -4,6 +4,9 @@ The Next.js example - Fall 2024 is a project that demonstrates how to use Next.j
 
 ![alt text](./public/homepage.png)
 
+<img width="1470" alt="Screenshot 2024-10-16 at 13 35 18" src="https://github.com/user-attachments/assets/142f6778-3a63-4057-a3f7-a1fdb1f0f193">
+
+
 ## Technologies
 
 - Next.js
