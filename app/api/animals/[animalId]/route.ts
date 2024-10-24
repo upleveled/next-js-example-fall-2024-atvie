@@ -23,7 +23,6 @@ type AnimalParams = {
   }>;
 };
 
-// query directly in your Server Component
 export async function GET(
   request: NextRequest,
   { params }: AnimalParams,
@@ -35,39 +34,6 @@ export async function GET(
     return NextResponse.json(
       {
         error: "Animal doesn't exist",
-      },
-      {
-        status: 404,
-      },
-    );
-  }
-
-  console.log(animal);
-  return NextResponse.json({ animal: animal });
-}
-
-export type AnimalResponseBodyDelete =
-  | {
-      animal: Animal;
-    }
-  | {
-      error: string;
-    };
-
-export async function DELETE(
-  request: NextRequest,
-  { params }: AnimalParams,
-): Promise<NextResponse<AnimalResponseBodyDelete>> {
-  console.log(Number((await params).animalId));
-
-  const animal = await deleteAnimalInsecure({
-    id: Number((await params).animalId),
-  });
-
-  if (!animal) {
-    return NextResponse.json(
-      {
-        error: 'Animal not found',
       },
       {
         status: 404,
@@ -129,4 +95,37 @@ export async function PUT(
   return NextResponse.json({
     animal: updatedAnimal,
   });
+}
+
+export type AnimalResponseBodyDelete =
+  | {
+      animal: Animal;
+    }
+  | {
+      error: string;
+    };
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: AnimalParams,
+): Promise<NextResponse<AnimalResponseBodyDelete>> {
+  console.log(Number((await params).animalId));
+
+  const animal = await deleteAnimalInsecure({
+    id: Number((await params).animalId),
+  });
+
+  if (!animal) {
+    return NextResponse.json(
+      {
+        error: 'Animal not found',
+      },
+      {
+        status: 404,
+      },
+    );
+  }
+
+  console.log(animal);
+  return NextResponse.json({ animal: animal });
 }
