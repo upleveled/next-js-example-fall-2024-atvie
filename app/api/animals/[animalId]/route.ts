@@ -51,6 +51,7 @@ export type AnimalResponseBodyPut =
     }
   | {
       error: string;
+      errorIssues?: { message: string }[];
     };
 
 export async function PUT(
