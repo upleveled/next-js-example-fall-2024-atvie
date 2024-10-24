@@ -27,6 +27,7 @@ export type AnimalsResponseBodyPost =
     }
   | {
       error: string;
+      errorIssues?: { message: string }[];
     };
 
 export async function POST(
