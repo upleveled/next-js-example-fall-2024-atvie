@@ -1,7 +1,10 @@
 import './globals.scss';
 import localFont from 'next/font/local';
+import { cookies } from 'next/headers';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
+import { getUser } from '../database/users';
+import LogoutButton from './(auth)/logout/LogoutButton';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -27,7 +30,18 @@ type Props = {
   children: ReactNode;
 };
 
-export default function RootLayout({ children }: Props) {
+export default async function RootLayout({ children }: Props) {
+  // Task: Display the logged in user's username in the navigation bar and hide the login and register links depending on whether the user is logged in or not
+  // 1. Checking if the sessionToken cookie exists
+  const sessionTokenCookie = (await cookies()).get('sessionToken');
+
+  // 2. Get the current logged in user from the database using the sessionToken value
+  const user = sessionTokenCookie && (await getUser(sessionTokenCookie.value));
+
+  console.log('User: ', user);
+
+  // 3. Make decision whether to show the login and register links or not
+
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
@@ -40,12 +54,24 @@ export default function RootLayout({ children }: Props) {
               {/* This is optimized */}
               <Link href="/">Home</Link>
               <Link href="/animals">Animals</Link>
+              <Link href="/animals/dashboard">Dashboard</Link>
               <Link href="/fruits">Fruits</Link>
               <Link href="/about">About</Link>
 
               <div>
-                <Link href="/register">Register</Link>
-                <Link href="/login">Login</Link>
+                {user ? (
+                  <>
+                    <Link href={`/profile/${user.username}`}>
+                      {user.username}
+                    </Link>
+                    <LogoutButton />
+                  </>
+                ) : (
+                  <>
+                    <Link href="/register">Register</Link>
+                    <Link href="/login">Login</Link>
+                  </>
+                )}
               </div>
             </nav>
             {Math.floor(Math.random() * 10)}

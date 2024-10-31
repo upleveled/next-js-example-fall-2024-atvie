@@ -1,11 +1,12 @@
 // WARNING: You don't need this, because you can do a database
 
+import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import {
   type Animal,
-  deleteAnimalInsecure,
+  deleteAnimal,
   getAnimalInsecure,
-  updateAnimalInsecure,
+  updateAnimal,
 } from '../../../../database/animals';
 import { animalSchema } from '../../../../migrations/00000-createTableAnimals';
 
@@ -74,13 +75,25 @@ export async function PUT(
     );
   }
 
-  const updatedAnimal = await updateAnimalInsecure({
-    id: Number((await params).animalId),
-    firstName: result.data.firstName,
-    type: result.data.type,
-    accessory: result.data.accessory || null,
-    birthDate: result.data.birthDate,
-  });
+  // const updatedAnimal = await updateAnimalInsecure({
+  //   id: Number((await params).animalId),
+  //   firstName: result.data.firstName,
+  //   type: result.data.type,
+  //   accessory: result.data.accessory || null,
+  //   birthDate: result.data.birthDate,
+  // });
+
+  const sessionTokenCookie = (await cookies()).get('sessionToken');
+
+  const updatedAnimal =
+    sessionTokenCookie &&
+    (await updateAnimal(sessionTokenCookie.value, {
+      id: Number((await params).animalId),
+      firstName: result.data.firstName,
+      type: result.data.type,
+      accessory: result.data.accessory || null,
+      birthDate: result.data.birthDate,
+    }));
 
   if (!updatedAnimal) {
     return NextResponse.json(
@@ -112,9 +125,18 @@ export async function DELETE(
 ): Promise<NextResponse<AnimalResponseBodyDelete>> {
   console.log(Number((await params).animalId));
 
-  const animal = await deleteAnimalInsecure({
-    id: Number((await params).animalId),
-  });
+  // const animal = await deleteAnimalInsecure({
+  //   id: Number((await params).animalId),
+  // });
+
+  const sessionTokenCookie = (await cookies()).get('sessionToken');
+
+  const animal =
+    sessionTokenCookie &&
+    (await deleteAnimal(
+      sessionTokenCookie.value,
+      Number((await params).animalId),
+    ));
 
   if (!animal) {
     return NextResponse.json(
