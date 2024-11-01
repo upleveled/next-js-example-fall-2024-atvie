@@ -6,7 +6,6 @@ The Next.js example - Fall 2024 is a project that demonstrates how to use Next.j
 
 <img width="1470" alt="Screenshot 2024-10-16 at 13 35 18" src="https://github.com/user-attachments/assets/142f6778-3a63-4057-a3f7-a1fdb1f0f193">
 
-
 ## Technologies
 
 - Next.js
@@ -102,3 +101,30 @@ pnpm playwright test
 
 - Fly.io
 - Docker
+
+## Authentication
+
+Some pages are protected with sessions and can only be accessed by authenticated users. User needs to login with username and password to be authenticated. Authenticated users can access the protected pages and perform CRUD operations on the animals.
+
+```ts
+export type User = {
+  id: number;
+  username: string;
+};
+
+export type UserWithPasswordHash = User & {
+  passwordHash: string;
+};
+
+type Error = {
+  message: string;
+};
+```
+
+```ts
+- /api/(auth)/register
+  - POST   => User   | Error[]   (create user)
+
+- /api/(auth)/login
+  - POST   => User   | Error[]   (login user)
+```

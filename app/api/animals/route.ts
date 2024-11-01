@@ -1,7 +1,8 @@
+import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import {
   type Animal,
-  createAnimalInsecure,
+  createAnimal,
   getAnimalsInsecure,
 } from '../../../database/animals';
 import { animalSchema } from '../../../migrations/00000-createTableAnimals';
@@ -63,12 +64,23 @@ export async function POST(
   }
 
   // validation successful, add information to database and return the new animal
-  const newAnimal = await createAnimalInsecure({
-    firstName: result.data.firstName,
-    type: result.data.type,
-    accessory: result.data.accessory || null,
-    birthDate: result.data.birthDate,
-  });
+  // const newAnimal = await createAnimalInsecure({
+  //   firstName: result.data.firstName,
+  //   type: result.data.type,
+  //   accessory: result.data.accessory || null,
+  //   birthDate: result.data.birthDate,
+  // });
+
+  const sessionTokenCookie = (await cookies()).get('sessionToken');
+
+  const newAnimal =
+    sessionTokenCookie &&
+    (await createAnimal(sessionTokenCookie.value, {
+      firstName: result.data.firstName,
+      type: result.data.type,
+      accessory: result.data.accessory || null,
+      birthDate: result.data.birthDate,
+    }));
 
   if (!newAnimal) {
     return NextResponse.json(
