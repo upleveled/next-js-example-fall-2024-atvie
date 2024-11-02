@@ -3,7 +3,7 @@ import type { User } from '../migrations/00006-createTableUsers';
 import type { Session } from '../migrations/00007-sessions';
 import { sql } from './connect';
 
-export type UserWithPasswordHash = User & {
+type UserWithPasswordHash = User & {
   passwordHash: string;
 };
 
