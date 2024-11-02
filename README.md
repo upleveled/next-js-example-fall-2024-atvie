@@ -112,7 +112,7 @@ export type User = {
   username: string;
 };
 
-export type UserWithPasswordHash = User & {
+type UserWithPasswordHash = User & {
   passwordHash: string;
 };
 
