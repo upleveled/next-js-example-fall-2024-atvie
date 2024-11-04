@@ -38,7 +38,7 @@ export async function POST(
     );
   }
 
-  // 3. verify the user credentials
+  // 3. Verify the user credentials
   const userWithPasswordHash = await getUserWithPasswordHashInsecure(
     result.data.username,
   );
