@@ -91,17 +91,11 @@ export default function AnimalsForm(props: Props) {
                         if (!response.ok) {
                           let newErrorMessage = 'Error deleting animal';
 
-                          try {
-                            const responseBody: AnimalResponseBodyDelete =
-                              await response.json();
+                          const responseBody: AnimalResponseBodyDelete =
+                            await response.json();
 
-                            if ('error' in responseBody) {
-                              newErrorMessage = responseBody.error;
-                            }
-                          } catch (error) {
-                            // Don't fail if response JSON body
-                            // cannot be parsed
-                            console.error(error);
+                          if ('error' in responseBody) {
+                            newErrorMessage = responseBody.error;
                           }
 
                           // TODO: Use toast instead of showing
@@ -152,16 +146,10 @@ export default function AnimalsForm(props: Props) {
                   if (!response.ok) {
                     let newErrorMessage = 'Error updating animal';
 
-                    try {
-                      const body: AnimalResponseBodyPut = await response.json();
+                    const body: AnimalResponseBodyPut = await response.json();
 
-                      if ('error' in body) {
-                        newErrorMessage = body.error;
-                      }
-                    } catch (error) {
-                      // Don't fail if response JSON body cannot
-                      // be parsed
-                      console.error(error);
+                    if ('error' in body) {
+                      newErrorMessage = body.error;
                     }
 
                     setErrorMessage(newErrorMessage);
@@ -186,17 +174,10 @@ export default function AnimalsForm(props: Props) {
                   if (!response.ok) {
                     let newErrorMessage = 'Error creating animal';
 
-                    try {
-                      const body: AnimalsResponseBodyPost =
-                        await response.json();
+                    const body: AnimalsResponseBodyPost = await response.json();
 
-                      if ('error' in body) {
-                        newErrorMessage = body.error;
-                      }
-                    } catch (error) {
-                      // Don't fail if response JSON body cannot
-                      // be parsed
-                      console.error(error);
+                    if ('error' in body) {
+                      newErrorMessage = body.error;
                     }
 
                     setErrorMessage(newErrorMessage);
