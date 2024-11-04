@@ -64,6 +64,7 @@ export default async function RootLayout({ children }: Props) {
                     <Link href={`/profile/${user.username}`}>
                       {user.username}
                     </Link>
+                    <Link href="/notes">View Notes</Link>
                     <LogoutButton />
                   </>
                 ) : (
