@@ -28,8 +28,7 @@ export default async function NotePage({ params }: Props) {
 
   // 3. Query the notes with the session token and noteId
   const note =
-    sessionTokenCookie &&
-    (await getNote(sessionTokenCookie, Number((await params).noteId)));
+    sessionTokenCookie && (await getNote(sessionTokenCookie, noteId));
 
   // 4. If there is no note for the current user, show restricted access message
   if (!note) {
