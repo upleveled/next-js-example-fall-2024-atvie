@@ -6,6 +6,8 @@ import type { ReactNode } from 'react';
 import { getUser } from '../database/users';
 import LogoutButton from './(auth)/logout/LogoutButton';
 
+export const dynamic = 'force-dynamic';
+
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
   variable: '--font-geist-sans',
